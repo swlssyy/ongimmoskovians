@@ -1,0 +1,14 @@
+com\mycompany\mewhenmoskov\Mewhenmoskov.class
+entity\Player.class
+object\OBJ_Soda.class
+tile\TileManager.class
+object\SuperObject.class
+main\KeyHandler.class
+main\GamePanel.class
+entity\entity.class
+object\OBJ_Fridge.class
+main\CollisionChecker.class
+tile\Tile.class
+object\OBJ_Trash.class
+main\main.class
+main\AssetSetter.class
