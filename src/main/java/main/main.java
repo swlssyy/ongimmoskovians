@@ -12,8 +12,7 @@ import javax.swing.JFrame;
  * @author khyle
  */
 public class main {
-    
-    public static void main(String[] args) {
+        public static void main(String[] args) {
         
         JFrame window = new  JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

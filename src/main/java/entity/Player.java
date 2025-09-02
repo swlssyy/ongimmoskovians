@@ -29,7 +29,7 @@ public class Player extends entity{
    public final int screenX;
    public final int screenY;
    
-   int hasSoda = 0;
+   public int hasSoda = 0;
 
    // what type of soda player has (0 = none, 1 = raw, 2 = cooled)
    int sodaType = 0;
@@ -161,7 +161,7 @@ public class Player extends entity{
                 gp.playSE(0);
                 hasSoda++;
                 gp.obj[i] = null; // remove soda from map
-                System.out.println("Picked up a soda. hasSoda=" + hasSoda);
+                gp.ui.showMessage("Picked up a soda!"); // show message
                 break;
 
             case "Fridge":
