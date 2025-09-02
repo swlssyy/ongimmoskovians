@@ -11,4 +11,5 @@ main\CollisionChecker.class
 tile\Tile.class
 object\OBJ_Trash.class
 main\main.class
+main\sounds.class
 main\AssetSetter.class

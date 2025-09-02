@@ -158,6 +158,7 @@ public class Player extends entity{
 
         switch (objectName) {
             case "Soda":
+                gp.playSE(0);
                 hasSoda++;
                 gp.obj[i] = null; // remove soda from map
                 System.out.println("Picked up a soda. hasSoda=" + hasSoda);
@@ -206,6 +207,7 @@ public class Player extends entity{
 
             case "TrashCan":
                 if (hasSoda > 0) {
+                    gp.playSE(2);
                     // throw soda into trash
                     hasSoda--;
                     OBJ_Soda sodaTrash = new OBJ_Soda();
