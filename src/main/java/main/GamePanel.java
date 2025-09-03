@@ -44,7 +44,7 @@ public class GamePanel extends JPanel implements Runnable{
     
     //System
     TileManager tileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler();
+    KeyHandler keyH = new KeyHandler(this);
     sounds music = new sounds();
     sounds se = new sounds();
     public CollisionChecker cChecker = new CollisionChecker(this);
@@ -55,6 +55,12 @@ public class GamePanel extends JPanel implements Runnable{
     //Entity and Object
     public Player player = new Player (this,keyH);
     public SuperObject obj[] = new SuperObject[10];
+
+    //GAME STATE
+    public int gameState;
+    public final int playState = 1;
+    public final int pauseState = 2;
+
 
     public GamePanel() {
         
@@ -71,7 +77,9 @@ public class GamePanel extends JPanel implements Runnable{
         aSetter.setObject();
         
         playMusic(1);
-    
+
+        gameState = playState;
+
     }
 
     public void startGameThread() {
@@ -120,8 +128,13 @@ public class GamePanel extends JPanel implements Runnable{
     
     public void update() {
         
-     player.update();
-        
+
+     if (gameState == playState) {
+         player.update();
+     }
+        if (gameState == pauseState) {
+            //nothing
+        }
     }
     public void paintComponent(Graphics g) {
         
@@ -150,10 +163,7 @@ public class GamePanel extends JPanel implements Runnable{
 
         g2.dispose();
         
-        
-        
-        
-        
+                
     }
     public void playMusic(int i) {
         
@@ -164,6 +174,17 @@ public class GamePanel extends JPanel implements Runnable{
     public void stopMusic() {
         
         music.stop();
+    }
+    public void pauseMusic() {
+        if (music.clip != null) {
+            music.clip.stop();
+        }
+    }
+    public void resumeMusic() {
+        if (music.clip != null) {
+            music.clip.start();
+            music.clip.loop(javax.sound.sampled.Clip.LOOP_CONTINUOUSLY);
+        }
     }
     public void playSE(int i) {
         

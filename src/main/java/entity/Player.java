@@ -43,6 +43,8 @@ public class Player extends entity{
    
    public Player(GamePanel gp, KeyHandler keyH) {
        
+       super(gp);
+       
        this.gp = gp;
        this.keyH = keyH;
        

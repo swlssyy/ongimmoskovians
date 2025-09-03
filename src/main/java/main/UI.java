@@ -18,6 +18,7 @@ import object.OBJ_Soda;
 public class UI {
     
     GamePanel gp;
+    Graphics2D g2;
     Font arial_20;
     BufferedImage keyImage;
     public boolean messageOn = false;
@@ -40,7 +41,35 @@ public class UI {
         messageOn = true;
         
     }
+    
     public void draw(Graphics2D g2) {
+        
+        this.g2 = g2;
+
+        g2.setFont(arial_20);
+        g2.setColor(Color.white); 
+
+        if(gp.gameState == gp.playState) {
+            //do playstate stuff
+        }
+        if(gp.gameState == gp.pauseState) {
+            drawPauseScreen();
+        }
+    }
+    public void drawPauseScreen() {
+
+        g2.setFont(g2.getFont().deriveFont(40F));
+        String text = "PAUSED";
+        int x = gp.screenWidth/2 - g2.getFontMetrics().stringWidth(text)/2;
+        int y = gp.screenHeight/2;
+
+        g2.drawString(text, x, y);
+    }
+    
+
+
+
+    public void drawhud(Graphics2D g2) {
         
         g2.setFont(arial_20);
         g2.setColor(Color.white);
