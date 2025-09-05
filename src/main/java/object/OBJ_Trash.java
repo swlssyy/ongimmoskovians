@@ -7,25 +7,28 @@ package object;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+import main.GamePanel;
+
 /**
  *
  * @author Frein
  */
 public class OBJ_Trash extends SuperObject {
-    
-    public OBJ_Trash(){
-        
+
+    GamePanel gp;
+
+    public OBJ_Trash(GamePanel gp) {
+
         Name = "TrashCan";
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/objects/trashcan.png"));
-        
-        }catch (IOException e){
+            uTool.scaledImage(image, gp.tileSize, gp.tileSize);
+
+        } catch (IOException e) {
             e.printStackTrace();
-        
+
         }
-       
-    
-    
+
     }
-    
+
 }

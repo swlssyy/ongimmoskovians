@@ -7,26 +7,28 @@ package object;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+import main.GamePanel;
+
 /**
  *
  * @author Frein
  */
 public class OBJ_Fridge extends SuperObject {
-    
-    
-    public OBJ_Fridge(){
-        
+
+    GamePanel gp;
+
+    public OBJ_Fridge(GamePanel gp) {
+
         Name = "Fridge";
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/objects/fridge.png"));
-        
-        }catch (IOException e){
+            uTool.scaledImage(image, gp.tileSize, gp.tileSize);
+
+        } catch (IOException e) {
             e.printStackTrace();
-        
+
         }
-    
-    
+
     }
-    
-    
+
 }

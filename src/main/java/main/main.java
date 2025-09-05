@@ -4,7 +4,6 @@
  */
 package main;
 
-import java.awt.PopupMenu;
 import javax.swing.JFrame;
 
 /**
@@ -30,6 +29,7 @@ public class main {
         window.setVisible(true);
         gamePanel.setupGame();
         gamePanel.startGameThread();
+        
     }
 }
 

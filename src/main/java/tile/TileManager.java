@@ -9,286 +9,214 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
 import javax.imageio.ImageIO;
+
 import main.GamePanel;
+import main.UtilityTool;
 
 /**
  *
  * @author Frein
  */
 public class TileManager {
-    
-    GamePanel gp;
-    public Tile[] tile;
-    public int mapTileNum[][];
-    
-    
-    public TileManager(GamePanel gp){
-    
-       this.gp = gp;
-       
-       tile = new Tile[35];
-       mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
-       
-       getTileImage();
-       loadMap("/maps/world01.txt");
-    }
-    
-    
-    public void getTileImage(){
-        
-        
-        try {
-            
-             //DIRT
-            tile[0] = new Tile();
-            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/dirt.png"));
-            
-            //Edge Down
-            tile[1] = new Tile();
-            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/edgedown.png"));
-            
-            // Edge UP
-            tile[2] = new Tile();
-            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/edgeup.png"));
-            
-            // Edge right
-            tile[3] = new Tile();
-            tile[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/edgeleft.png"));
-            
-            // Edge left
-            tile[4] = new Tile();
-            tile[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/edgeright.png"));
-            
-            // Edge North West (Top RIGHT)
-            tile[5] = new Tile();
-            tile[5].image = ImageIO.read(getClass().getResourceAsStream("/tiles/edgeNW.png"));
-            
-            // Edge North East (Top LEFT)
-            tile[6] = new Tile();
-            tile[6].image = ImageIO.read(getClass().getResourceAsStream("/tiles/edgeNE.png"));
-            
-            // Edge South East (Bottom RIGHT)
-            tile[7] = new Tile();
-            tile[7].image = ImageIO.read(getClass().getResourceAsStream("/tiles/edgeSE.png"));
-            
-            // Edge South West (Bottom LEFT)
-            tile[8] = new Tile();
-            tile[8].image = ImageIO.read(getClass().getResourceAsStream("/tiles/edgeSW.png"));
-            
-            // Edgeconnector TR
-            tile[9] = new Tile();
-            tile[9].image = ImageIO.read(getClass().getResourceAsStream("/tiles/edgeconnector.png"));
-            
-            // EdgeconnectorTL
-            tile[10] = new Tile();
-            tile[10].image = ImageIO.read(getClass().getResourceAsStream("/tiles/edgeconnectorTL.png"));
-            
-            // EdgeconnectorBR
-            tile[11] = new Tile();
-            tile[11].image = ImageIO.read(getClass().getResourceAsStream("/tiles/edgeconnectorBR.png"));
-            
-            // EdgeconnectorBL
-            tile[12] = new Tile();
-            tile[12].image = ImageIO.read(getClass().getResourceAsStream("/tiles/edgeconnectorBL.png"));
-            
-            //
-            tile[13] = new Tile();
-            tile[13].image = ImageIO.read(getClass().getResourceAsStream("/tiles/blacktile.png"));
-            
-            //COUNTER TOASTER
-         //   // SOLID TILE         //   // SOLID TILE
-            tile[14] = new Tile();
-            tile[14].image = ImageIO.read(getClass().getResourceAsStream("/tiles/blender.png"));
-            tile[14].collision = true;
-            
-            //TOASTER TOP
-         //   // SOLID TILE
-            tile[15] = new Tile();
-            tile[15].image = ImageIO.read(getClass().getResourceAsStream("/tiles/ctoaster.png"));
-            tile[15].collision = true;
-            
-            //
-            tile[16] = new Tile();
-            tile[16].image = ImageIO.read(getClass().getResourceAsStream("/tiles/cupboard.png"));
-            
-            //BLENDERTOP
-         //   //SOLID TILE
-            tile[17] = new Tile();
-            tile[17].image = ImageIO.read(getClass().getResourceAsStream("/tiles/cupboardblender.png"));
-            tile[17].collision = true;
-            
-            //OVEN BASE
-         //   //SOLID TILE
-            tile[18] = new Tile();
-            tile[18].image = ImageIO.read(getClass().getResourceAsStream("/tiles/cupboardred.png"));
-            tile[18].collision = true;
-            
-            //Ref Base
-          //  //SOLID TILE
-            tile[19] = new Tile();
-            tile[19].image = ImageIO.read(getClass().getResourceAsStream("/tiles/fridge.png"));
-            tile[19].collision = true;
-            
-            //FRYER TOP
-         //   // SOLID TILE
-            tile[20] = new Tile();
-            tile[20].image = ImageIO.read(getClass().getResourceAsStream("/tiles/fryer.png"));
-            tile[20].collision = true;
-            
-            // COUNTER
-          //  // SOLID TILE
-            tile[21] = new Tile();
-            tile[21].image = ImageIO.read(getClass().getResourceAsStream("/tiles/horizontaltable.png"));
-            tile[21].collision = true;
-            
-            //UTENSILS
-         //   //SOLID TILE
-            tile[22] = new Tile();
-            tile[22].image = ImageIO.read(getClass().getResourceAsStream("/tiles/knivesontable.png"));
-            tile[22].collision = true;
-            
-            //OVEN TOP
-         //   //SOLID TILE
-            tile[23] = new Tile();
-            tile[23].image = ImageIO.read(getClass().getResourceAsStream("/tiles/microwave.png"));
-            tile[23].collision = true;
-            
-            //OVEN BASE
-         //   // SOLID TILE
-            tile[24] = new Tile();
-            tile[24].image = ImageIO.read(getClass().getResourceAsStream("/tiles/oven.png"));
-            tile[24].collision = true;
-            
-            //
-            tile[25] = new Tile();
-            tile[25].image = ImageIO.read(getClass().getResourceAsStream("/tiles/stove.png"));
-            
-            //COUNTER BOTTOM RIGHT
-         //   // SOLID TILE
-            tile[26] = new Tile();
-            tile[26].image = ImageIO.read(getClass().getResourceAsStream("/tiles/tablebotright.png"));
-            tile[26].collision = true;
-            
-            //TOASTER
-          //   // SOLID TILE
-            tile[27] = new Tile();
-            tile[27].image = ImageIO.read(getClass().getResourceAsStream("/tiles/tabletoaster.png"));
-            tile[27].collision = true;
-            
-            //COUNTER TABLE
-         //   // SOLID TILE
-            tile[28] = new Tile();
-            tile[28].image = ImageIO.read(getClass().getResourceAsStream("/tiles/tabletopleft.png"));
-            tile[28].collision = true;
-            
-            //
-            tile[29] = new Tile();
-            tile[29].image = ImageIO.read(getClass().getResourceAsStream("/tiles/topfridge.png"));
-            
-            //COUNTER LEFT
-          //  // SOLID TILE
-            tile[30] = new Tile();
-            tile[30].image = ImageIO.read(getClass().getResourceAsStream("/tiles/verticaltableleft.png"));
-            tile[30].collision = true;
-            
-            //COUNTER RIGHT
-         //   // SOLID TILE
-            tile[31] = new Tile();
-            tile[31].image = ImageIO.read(getClass().getResourceAsStream("/tiles/verticaltableright.png"));
-            tile[31].collision = true;
-            
-            //
-            tile[32] = new Tile();
-            tile[32].image = ImageIO.read(getClass().getResourceAsStream("/tiles/whitetile.png"));
-            
-            //COUNTER TOP RIGHT
-         //   // SOLID TILE
-            tile[33] = new Tile();
-            tile[33].image = ImageIO.read(getClass().getResourceAsStream("/tiles/tabletopright.png"));
-            tile[33].collision = true;
-            
-            //
-            tile[34] = new Tile();
-            tile[34].image = ImageIO.read(getClass().getResourceAsStream("/tiles/tablebotleft.png"));
-            
-       
-        
-        } catch(IOException e){
-            e.printStackTrace();
-        }
 
-    }
-    
-    public void loadMap (String filePath) {
-        
-        
-        try {
-            
-            InputStream is = getClass().getResourceAsStream(filePath);
-            BufferedReader br = new BufferedReader (new InputStreamReader(is));
-            
-            int col = 0;
-            int row = 0;
-            
-            while (col < gp.maxWorldCol && row < gp.maxWorldRow){
-            
-                String  line = br.readLine();
-                
-                while (col < gp.maxWorldCol){
-                    
-                    String numbers[] = line.split(" ");
-                
-                    int num = Integer.parseInt(numbers[col]);
-                    
-                    mapTileNum[col][row] = num;
-                    col++;
-                   
-                }
-                if (col == gp.maxWorldCol){
-                    col = 0;
-                    row++;
-                }
+   GamePanel gp;
+   public Tile[] tile;
+   public int mapTileNum[][];
+
+   public TileManager(GamePanel gp) {
+
+      this.gp = gp;
+
+      tile = new Tile[35];
+      mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
+
+      getTileImage();
+      loadMap("/maps/world01.txt");
+   }
+
+   public void getTileImage() {
+
+      // dirt
+      setup(0, "dirt", false);
+
+      // Edge Down
+      setup(1, "edgedown", false);
+
+      // Edge Up
+      setup(2, "edgeup", false);
+
+      // Edge Right
+      setup(3, "edgeleft", false);
+
+      // Edge Left
+      setup(4, "edgeright", false);
+
+      // Edge North West (Top RIGHT)
+      setup(5, "edgeNW", false);
+
+      // Edge North East (Top LEFT)
+      setup(6, "edgeNE", false);
+
+      // Edge South East (Bottom RIGHT)
+      setup(7, "edgeSE", false);
+
+      // Edge South West (Bottom LEFT)
+      setup(8, "edgeSW", false);
+
+      // Edgeconnector TR
+      setup(9, "edgeconnector", false);
+
+      // Edgeconnector TL
+      setup(10, "edgeconnectorTL", false);
+
+      // Edgeconnector BR
+      setup(11, "edgeconnectorBR", false);
+
+      // Edgeconnector BL
+      setup(12, "edgeconnectorBL", false);
+
+      // Black Tile
+      setup(13, "blacktile", false);
+
+      // Counter Toaster (solid)
+      setup(14, "blender", true);
+
+      // Toaster Top (solid)
+      setup(15, "ctoaster", true);
+
+      // Cupboard
+      setup(16, "cupboard", false);
+
+      // Blender Top (solid)
+      setup(17, "cupboardblender", true);
+
+      // Oven Base (solid)
+      setup(18, "cupboardred", true);
+
+      // Ref Base (solid)
+      setup(19, "fridge", true);
+
+      // Fryer Top (solid)
+      setup(20, "fryer", true);
+
+      // Counter (solid)
+      setup(21, "horizontaltable", true);
+
+      // Utensils (solid)
+      setup(22, "knivesontable", true);
+
+      // Oven Top (solid)
+      setup(23, "microwave", true);
+
+      // Oven Base (solid)
+      setup(24, "oven", true);
+
+      // Stove
+      setup(25, "stove", false);
+
+      // Counter Bottom Right (solid)
+      setup(26, "tablebotright", true);
+
+      // Toaster (solid)
+      setup(27, "tabletoaster", true);
+
+      // Counter Table (solid)
+      setup(28, "tabletopleft", true);
+
+      // Top Fridge
+      setup(29, "topfridge", false);
+
+      // Counter Left (solid)
+      setup(30, "verticaltableleft", true);
+
+      // Counter Right (solid)
+      setup(31, "verticaltableright", true);
+
+      // White Tile
+      setup(32, "whitetile", false);
+
+      // Counter Top Right (solid)
+      setup(33, "tabletopright", true);
+
+      // Table Bottom Left
+      setup(34, "tablebotleft", false);
+   }
+
+   public void setup(int index, String imageName, boolean collision) {
+
+      UtilityTool uTool = new UtilityTool();
+
+      try {
+         tile[index] = new Tile();
+         tile[index].image = ImageIO.read(getClass().getResourceAsStream("/tiles/" + imageName + ".png"));
+         tile[index].image = uTool.scaledImage(tile[index].image, gp.tileSize, gp.tileSize);
+         tile[index].collision = collision;
+
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
+
+   }
+
+   public void loadMap(String filePath) {
+      try {
+         InputStream is = getClass().getResourceAsStream(filePath);
+         BufferedReader br = new BufferedReader(new InputStreamReader(is));
+
+         int row = 0;
+
+         while (row < gp.maxWorldRow) {
+            String line = br.readLine();
+            if (line == null)
+               break; // stop if file ends early
+
+            String numbers[] = line.split(" ");
+
+            for (int col = 0; col < gp.maxWorldCol && col < numbers.length; col++) {
+               int num = Integer.parseInt(numbers[col]);
+               mapTileNum[col][row] = num;
             }
-            br.close();
-            
-        } catch(Exception e){
-            
-        }
-        
-    }
-    public void draw(Graphics2D g2){
-        
-        int worldCol = 0;
-        int worldRow = 0;
-       
-        
-        while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
-            
-            int tileNum = mapTileNum [worldCol][worldRow];
-            
-            int worldX = worldCol * gp.tileSize;
-            int worldY = worldRow * gp.tileSize;
-            int screenX = worldX - gp.player.worldX + gp.player.screenX;
-            int screenY = worldY - gp.player.worldY + gp.player.screenY;
-           
-            
-            if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
-                worldX - gp.tileSize< gp.player.worldX + gp.player.screenX &&
-                worldY + gp.tileSize> gp.player.worldY - gp.player.screenY &&
-                worldY - gp.tileSize< gp.player.worldY + gp.player.screenY) {
-                
-                g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
-            
-            }
-           
-            worldCol++;
-            
-             if(worldCol == gp.maxWorldCol) {
-                 worldCol = 0;
-                 worldRow++;
-              
-             }
-        }
-    }
+            row++;
+         }
+
+         br.close();
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+   }
+
+   public void draw(Graphics2D g2) {
+
+      int worldCol = 0;
+      int worldRow = 0;
+
+      while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
+
+         int tileNum = mapTileNum[worldCol][worldRow];
+
+         int worldX = worldCol * gp.tileSize;
+         int worldY = worldRow * gp.tileSize;
+         int screenX = worldX - gp.player.worldX + gp.player.screenX;
+         int screenY = worldY - gp.player.worldY + gp.player.screenY;
+
+         if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
+               worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
+               worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
+               worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
+
+            g2.drawImage(tile[tileNum].image, screenX, screenY, null);
+
+         }
+
+         worldCol++;
+
+         if (worldCol == gp.maxWorldCol) {
+            worldCol = 0;
+            worldRow++;
+
+         }
+      }
+   }
 }
