@@ -11,15 +11,15 @@ public class NPC_Customer3 extends QueuedCustomer {
     }
 
     public void getImage() {
-        up1 = setup("/NPC/NPCup1");
-        up2 = setup("/NPC/NPCup2");
-        down1 = setup("/NPC/NPCdown1");
-        down2 = setup("/NPC/NPCdown2");
-        left1 = setup("/NPC/NPCleft1");
-        left2 = setup("/NPC/NPCleft2");
-        right1 = setup("/NPC/NPCright1");
-        right2 = setup("/NPC/NPCright2");
-    }
+       up1 = setup("/NPC/Fire_Up1.png");
+       up2 = setup("/NPC/Fire_Up2.png");
+       down1 = setup("/NPC/Fire_Down1.png");
+       down2 = setup("/NPC/Fire_Down2.png");
+       left1 = setup("/NPC/Fire_Left1.png");
+       left2 = setup("/NPC/Fire_Left2.png");
+       right1 = setup("/NPC/Fire_Right1.png");
+       right2 = setup("/NPC/Fire_Right2.png");
+   }
 
     public void setDialogue() {
         dialogues[0] = "Hello, can I order?";

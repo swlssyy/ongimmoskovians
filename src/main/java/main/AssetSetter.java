@@ -39,33 +39,17 @@ public class AssetSetter {
     
 
     public void setNPC() {
-    gp.npc[0] = new NPC_Customer1(gp);
-    gp.queueManager.register((QueuedCustomer) gp.npc[0]);
-
-    gp.npc[1] = new NPC_Customer2(gp);
-    gp.queueManager.register((QueuedCustomer) gp.npc[1]);
-
-    gp.npc[2] = new NPC_Customer3(gp);
-    gp.queueManager.register((QueuedCustomer) gp.npc[2]);
-
-    gp.npc[3] = new NPC_Customer3(gp);
-    gp.queueManager.register((QueuedCustomer) gp.npc[3]);
-
-    gp.npc[4] = new NPC_Customer3(gp);
-    gp.queueManager.register((QueuedCustomer) gp.npc[4]);
-
-    Random rand = new Random();
-for (int i = 0; i < 10; i++) {
-    entity npc;
-    int type = rand.nextInt(3); // 0,1,2
-
-    switch (type) {
-        case 0 -> npc = new NPC_Customer1(gp);
-        case 1 -> npc = new NPC_Customer2(gp);
-        default -> npc = new NPC_Customer3(gp);
+   Random rand = new Random();
+   for (int i = 0; i < 10; i++) {
+       QueuedCustomer npc;
+       int type = rand.nextInt(3); // 0,1,2
+       switch (type) {
+           case 0 -> npc = new NPC_Customer1(gp);
+           case 1 -> npc = new NPC_Customer2(gp);
+           default -> npc = new NPC_Customer3(gp);
+       }
+       gp.npc[i] = npc;              // store in array so GamePanel can update/draw
+       gp.queueManager.register(npc); // register for queue pathing
+   }
     }
-
-    gp.queueManager.register((QueuedCustomer) npc); // add to queue
-}
-}
 }
