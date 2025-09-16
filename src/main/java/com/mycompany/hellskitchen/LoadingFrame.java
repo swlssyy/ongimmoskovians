@@ -25,8 +25,8 @@ public class LoadingFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         jPanel1.setBackground(Color.BLACK);
 
-        gifIn = new ImageIcon("C:\\Users\\Frein\\Downloads\\ongimmoskovians-main\\ongimmoskovians-main\\src\\main\\resources\\HKpics\\Load in.gif");
-        gifOut = new ImageIcon("C:\\Users\\Frein\\Downloads\\ongimmoskovians-main\\ongimmoskovians-main\\src\\main\\resources\\HKpics\\Load out.gif");
+        gifIn = new ImageIcon(getClass().getResource("/HKpics/Load in.gif"));
+        gifOut = new ImageIcon(getClass().getResource("/HKpics/Load out.gif"));
 
         LoadIN.setIcon(gifIn);
         LoadOUT.setIcon(gifOut);
