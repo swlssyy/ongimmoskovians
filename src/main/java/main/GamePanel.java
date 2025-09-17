@@ -111,7 +111,7 @@ public class GamePanel extends JPanel implements Runnable {
             // PLAYER
             player.update();
 
-            // NPC
+            // NPC - update every frame so their setAction() runs
             for (int i = 0; i < npc.length; i++) {
                 if (npc[i] != null) {
                     npc[i].update();
@@ -120,13 +120,89 @@ public class GamePanel extends JPanel implements Runnable {
 
             // Interaction with E
             if (keyH.ePressed) {
-                int npcIndex = getNpcIndexFacingPlayer();
+                boolean handled = false;
 
-                if (npcIndex != 999 && npc[npcIndex] instanceof QueuedCustomer qc) {
-                    qc.interact(); // Leaves & triggers next one
-                   
-                } 
+                // --- 1) Check if player is facing the counter ---
+                int fx = player.worldX;
+                int fy = player.worldY;
 
+                switch (player.direction) {
+                    case "up": fy -= tileSize; break;
+                    case "down": fy += tileSize; break;
+                    case "left": fx -= tileSize; break;
+                    case "right": fx += tileSize; break;
+                }
+
+                int tol = tileSize / 4;
+
+                for (int i = 0; i < obj.length; i++) {
+                    if (obj[i] == null) continue;
+
+                    // Counter interaction
+                    if ("Counter".equals(obj[i].Name)) {
+                        if (Math.abs(obj[i].worldX - fx) <= tol &&
+                            Math.abs(obj[i].worldY - fy) <= tol) {
+
+                            // Found counter in front of player
+                            int counterCol = obj[i].worldX / tileSize;
+                            int counterRow = obj[i].worldY / tileSize;
+                            int serviceCol = counterCol;
+                            int serviceRow = counterRow + 1;
+
+                            int serviceX = serviceCol * tileSize;
+                            int serviceY = serviceRow * tileSize;
+
+                            // Find NPC at service spot
+                            for (int n = 0; n < npc.length; n++) {
+                                if (npc[n] instanceof QueuedCustomer qc && qc.active && !qc.isLeaving()) {
+                                    if (Math.abs(npc[n].worldX - serviceX) <= tol &&
+                                        Math.abs(npc[n].worldY - serviceY) <= tol) {
+
+                                        if (player.hasSoda > 0 && player.sodaType == 2) {
+                                            qc.interact();
+                                            player.hasSoda--;
+                                            player.sodaType = 0;
+                                            ui.showMessage("Served a cooled soda!");
+                                            System.out.println("Served cooled soda to customer at " + serviceCol + "," + serviceRow);
+                                        } else {
+                                            ui.showMessage("You need a cooled soda to serve!");
+                                            System.out.println("Tried to serve but no cooled soda.");
+                                        }
+                                        handled = true;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if (!handled) {
+                                ui.showMessage("Nobody is waiting at the counter.");
+                                System.out.println("E pressed at Counter but no NPC at service tile " + serviceCol + "," + serviceRow);
+                                handled = true;
+                            }
+                        }
+                    }
+                }
+
+                // --- 2) Other objects (fridge, trash, soda) ---
+                if (!handled) {
+                    int objIndex = cChecker.checkObjectStanding(player, true);
+                    if (objIndex != 999) {
+                        player.pickUpObject(objIndex);
+                        handled = true;
+                    }
+                }
+
+                // --- 3) Fallback direct NPC interaction ---
+                if (!handled) {
+                    int npcIndex = getNpcIndexFacingPlayer();
+                    if (npcIndex != 999 && npc[npcIndex] instanceof QueuedCustomer qc) {
+                        qc.interact();
+                        System.out.println("Interacted directly with NPC index " + npcIndex);
+                        handled = true;
+                    }
+                }
+
+                // Reset E so it only triggers once per press
                 keyH.ePressed = false;
             }
         }

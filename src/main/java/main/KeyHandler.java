@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package main;
 
 import java.awt.event.KeyEvent;
@@ -16,7 +12,8 @@ public class KeyHandler implements KeyListener {
     GamePanel gp;
     public boolean upPressed, downPressed, leftPressed, rightPressed;
     public boolean enterPressed;
-    public boolean ePressed;          // <-- add this
+    public boolean ePressed;
+    public boolean qPressed;          // <-- added
 
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
@@ -35,7 +32,8 @@ public class KeyHandler implements KeyListener {
             if (code == KeyEvent.VK_A) leftPressed = true;
             if (code == KeyEvent.VK_D) rightPressed = true;
             if (code == KeyEvent.VK_ENTER) enterPressed = true;
-            if (code == KeyEvent.VK_E) ePressed = true;        // <-- E sets this
+            if (code == KeyEvent.VK_E) ePressed = true;
+            if (code == KeyEvent.VK_Q) qPressed = true;    // <-- Q sets this
 
             if (code == KeyEvent.VK_ESCAPE) {
                 gp.gameState = gp.pauseState;
@@ -61,6 +59,7 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_S) downPressed = false;
         if (code == KeyEvent.VK_A) leftPressed = false;
         if (code == KeyEvent.VK_D) rightPressed = false;
-        if (code == KeyEvent.VK_E) ePressed = false;         // <-- reset on release
+        if (code == KeyEvent.VK_E) ePressed = false;
+        if (code == KeyEvent.VK_Q) qPressed = false;     // <-- reset on release
     }
 }

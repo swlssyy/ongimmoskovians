@@ -6,7 +6,7 @@ import entity.NPC_Customer1;
 import entity.NPC_Customer2;
 import entity.NPC_Customer3;
 import entity.QueuedCustomer;
-import entity.entity;
+import object.OBJ_Counter;
 import object.OBJ_Fridge;
 import object.OBJ_Soda;
 import object.OBJ_Trash;
@@ -35,6 +35,10 @@ public class AssetSetter {
         gp.obj[3] = new OBJ_Trash(gp);
         gp.obj[3].worldX = 7 * gp.tileSize;
         gp.obj[3].worldY = 9 * gp.tileSize;
+
+        gp.obj[4] = new OBJ_Counter(gp);
+        gp.obj[4].worldX = 9 * gp.tileSize;
+        gp.obj[4].worldY = 10 * gp.tileSize;
     }
     
 
